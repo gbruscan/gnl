@@ -6,7 +6,7 @@
 /*   By: gbruscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/15 11:37:39 by gbruscan          #+#    #+#             */
-/*   Updated: 2015/12/15 18:49:56 by gbruscan         ###   ########.fr       */
+/*   Updated: 2015/12/15 19:33:44 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		ft_strlen_without_n(char *s)
 	return (i - j);
 }
 
-char	*ft_line_filler(char *buff, char **line)
+char	*ft_line_filler(char *buff)
 {
 	int     i;
 	int		j;
@@ -57,17 +57,41 @@ char	*ft_line_filler(char *buff, char **line)
 	return (chn);
 }
 
+char	*ft_infinite_buffer(int fd, char *buff)
+{
+	int		ret;
+	char	*chn;
+	char	*tmp;
+
+	ret = 1;
+	chn = (char *)malloc(ft_strlen_without_n(buff) + 1);
+	if (!chn)
+		return (NULL);
+	while (ret != 0)
+	{
+		if (ret == -1)
+			return (NULL);
+		tmp = ft_strdup(buff);
+		ret = read(fd, buff, BUFF_SIZE);
+		tmp = ft_strjoin(buff, tmp);
+	}
+	printf("%s\n", buff);
+	printf("%d\n", ret);
+	return (chn);
+}
+
 int		get_next_line(int const fd, char **line)
 {
 	static char		buff[BUFF_SIZE + 1];
+	char			*buff2;
 	int				ret;
 
 	if (line == NULL)
 		return (-1);
 	ret = read(fd, buff, BUFF_SIZE);
 	buff[ret] = '\0';
-	printf("ret = %d\n", ret);
-	line[0] = ft_line_filler(buff, line);
+	buff2 = ft_infinite_buffer(fd, buff);
+	line[0] = ft_line_filler(buff);
 //	printf("%s\n", line[0]);
 	return (0);
 }
