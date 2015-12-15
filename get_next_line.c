@@ -6,7 +6,7 @@
 /*   By: gbruscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/15 11:37:39 by gbruscan          #+#    #+#             */
-/*   Updated: 2015/12/15 19:33:44 by gbruscan         ###   ########.fr       */
+/*   Updated: 2015/12/15 19:52:56 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,18 @@ char	*ft_infinite_buffer(int fd, char *buff)
 	int		ret;
 	char	*chn;
 	char	*tmp;
-
+	
 	ret = 1;
-	chn = (char *)malloc(ft_strlen_without_n(buff) + 1);
-	if (!chn)
-		return (NULL);
+	tmp = ft_strdup(buff);	
 	while (ret != 0)
 	{
-		if (ret == -1)
-			return (NULL);
-		tmp = ft_strdup(buff);
 		ret = read(fd, buff, BUFF_SIZE);
-		tmp = ft_strjoin(buff, tmp);
+		tmp = ft_strjoin(tmp, buff);
 	}
-	printf("%s\n", buff);
-	printf("%d\n", ret);
-	return (chn);
+	tmp = ft_strsub(tmp, 0, ft_strlen(tmp));
+	tmp = ft_line_filler(tmp);
+	printf("%s\n", tmp);
+	return (tmp);
 }
 
 int		get_next_line(int const fd, char **line)
