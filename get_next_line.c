@@ -6,89 +6,47 @@
 /*   By: gbruscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/15 11:37:39 by gbruscan          #+#    #+#             */
-/*   Updated: 2015/12/16 12:27:40 by gbruscan         ###   ########.fr       */
+/*   Updated: 2015/12/16 15:58:29 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-#include "../Projects_C/libft/libft.h"
+#include "libft/libft.h"
 
-int		ft_strlen_without_n(char *s)
+int		ft_save_buff(char *buff, char **line)
+{
+
+
+}
+
+int		ft_get_new_line(char *buff, char **line)
 {
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == '\n')
-			j += 1;
+	while (buff && buff[i] != '\n' && buff[i] != '\0')
 		i++;
-	}
-	return (i - j);
-}
+	if (buff[i] == '\n') //        ligne terminee
+	{
 
-char	*ft_line_filler(char *buff)
-{
-	int     i;
-	int		j;
-	char    *chn;
-	
-	i = 0;
-	while (buff[i++] != '\0')
-	{
-		if (buff[i] == '\n')
-			i += 1;
 	}
-	chn = (char *)malloc(sizeof(char) * i + 1);
-	if (!chn)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (buff[i] != '\0')
+	else if (buff[i] == '\0') //   tout le buffer parcouru
 	{
-		if (buff[i] == '\n')
-			i += 1;
-		chn[j++] = buff[i++];
-	}
-	chn[j] = '\0';
-	return (chn);
-}
 
-char	*ft_infinite_buffer(int fd, char *buff)
-{
-	int			ret;
-	char		*chn;
-	char		*tmp;
-	
-	ret = 1;
-	tmp = ft_strdup(buff);
-	while (ret != 0)
-	{
-		ret = read(fd, buff, BUFF_SIZE);
-		if (ret < BUFF_SIZE)
-			buff = ft_strsub(buff, 0, ret);
-		tmp = ft_strjoin(tmp, buff);
+
 	}
-	tmp = ft_line_filler(tmp);
-	printf("%s", tmp);
-	return (tmp);
+	return (0);
 }
 
 int		get_next_line(int const fd, char **line)
 {
 	static char		buff[BUFF_SIZE + 1];
-	char			*buff2;
 	int				ret;
 
 	if (line == NULL)
 		return (-1);
-	ret = read(fd, buff, BUFF_SIZE);
-	buff[ret] = '\0';
-	buff2 = ft_infinite_buffer(fd, buff);
-	line[0] = ft_line_filler(buff);
-//	printf("%s\n", line[0]);
+	read(fd, buff, BUFF_SIZE);
+	ft_get_new_line(buff, line);
 	return (0);
 }
