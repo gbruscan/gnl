@@ -6,7 +6,7 @@
 /*   By: gbruscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/15 11:58:55 by gbruscan          #+#    #+#             */
-/*   Updated: 2015/12/16 14:58:05 by gbruscan         ###   ########.fr       */
+/*   Updated: 2015/12/20 16:26:52 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#define BUFF_SIZE 1000
+#define BUFF_SIZE 10
 //#define BUFF_SIZE 1246
 
 int		get_next_line(int const fd, char **line);
