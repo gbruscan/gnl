@@ -6,7 +6,7 @@
 /*   By: gbruscan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/15 11:37:39 by gbruscan          #+#    #+#             */
-/*   Updated: 2015/12/20 17:37:06 by gbruscan         ###   ########.fr       */
+/*   Updated: 2016/01/05 17:41:43 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_get_new_line(char *buff, char **line, int fd)
 
 int		get_next_line(int const fd, char **line)
 {
-	static char		buff[BUFF_SIZE + 1];
+	char		buff[BUFF_SIZE + 1];
 	int				ret;
 
 	if (line == NULL)
